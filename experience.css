@@ -1,0 +1,143 @@
+body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f5f7fa;
+      color: #22223b;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #4a4e69;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0; /* Plus de padding à gauche */
+      background-color: #4a4e69;
+      min-height: 64px;
+    }
+.logo-uspn {
+  height: 50px;
+  width: auto;
+  margin: 0 32px 0 0; /* espace à droite du logo */
+  display: block;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 18px 0;
+  transition: color 0.2s, border-bottom 0.2s;
+  border-bottom: 3px solid transparent;
+  display: block;
+}
+
+.navbar a.active,
+.navbar a:hover {
+  color: #fff;
+  border-bottom: 3px solid #fff;
+}
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .presentation {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(74, 78, 105, 0.08);
+      padding: 30px;
+      text-align: center;
+    }
+
+    footer {
+      background: #22223b;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+
+    .experience-cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(74,78,105,0.10);
+      padding: 28px 22px;
+      width: 300px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-icon {
+      font-size: 2.5em;
+      margin-bottom: 12px;
+    }
+
+    .presentation ul {
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+.presentation li {
+  margin-bottom: 18px;
+  list-style: none;
+  background: #e0e1dd;
+  border-left: 5px solid #4a4e69;
+  padding: 12px 18px;
+  border-radius: 5px;
+}
+
+.card ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.card ul li {
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.github-link {
+  color: #4a4e69;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.github-link:hover {
+  color: #9a8c98;
+}
+main > h1 {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 32px;
+  font-size: 2.2em;
+  color: #4a4e69;
+}

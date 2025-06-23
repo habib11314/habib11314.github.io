@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formation - Habib Ben Mansour</title>
+
+    <!-- CDN Libraries -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="navigation.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #6366f1;
+        --secondary-color: #8b5cf6;
+        --accent-color: #06b6d4;
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: rgba(30, 41, 59, 0.6);
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-color: rgba(148, 163, 184, 0.1);
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Loading Animation */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--border-color);
+        border-top: 3px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Background Animation */
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(15, 23, 42, 0.8);        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        transition: all 0.3s ease;
+      }
+
+      /* Main Content */
+      main {
+        margin-top: 80px;
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .formation-hero {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .formation-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      .formation-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .formation-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 4rem;
+        align-items: start;
+        margin-bottom: 4rem;
+      }
+
+      .formation-img-container {
+        position: relative;
+      }
+
+      .formation-img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease;
+      }
+
+      .formation-img:hover {
+        transform: scale(1.05);
+      }
+
+      .formation-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .formation-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .formation-content p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      /* Skills Section */
+      .skills-section {
+        margin-top: 4rem;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        background: linear-gradient(
+          135deg,
+          var(--accent-color) 0%,
+          var(--primary-color) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .skill-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1rem;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .skill-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+      }
+
+      .skill-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .skill-header {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+      }
+
+      .skill-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        margin: 4rem 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin: 2rem 0;
+        width: 45%;
+      }
+
+      .timeline-item:nth-child(odd) {
+        left: 0;
+        text-align: right;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 55%;
+        text-align: left;
+      }
+
+      .timeline-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        position: relative;
+      }
+
+      .timeline-content::after {
+        content: "";
+        position: absolute;
+        top: 1.5rem;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::after {
+        right: -20px;
+        border-left-color: var(--glass-border);
+      }
+
+      .timeline-item:nth-child(even) .timeline-content::after {
+        left: -20px;
+        border-right-color: var(--glass-border);
+      }
+
+      .timeline-year {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+      }
+
+      .timeline-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 6rem;
+        padding: 2rem;
+        text-align: center;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid var(--glass-border);
+        color: var(--text-muted);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 1rem;
+          flex-direction: column;
+          gap: 1rem;
+        }        .navbar ul {
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .formation-title {
+          font-size: 2.5rem;
+        }
+
+        .formation-layout {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .skills-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .timeline::before {
+          left: 1rem;
+        }
+
+        .timeline-item {
+          width: calc(100% - 3rem);
+          left: 3rem !important;
+          text-align: left !important;
+        }
+
+        .timeline-content::after {
+          left: -20px !important;
+          border-right-color: var(--glass-border) !important;
+          border-left-color: transparent !important;
+        }
+
+        main {
+          padding: 2rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>    <!-- Header -->
+    <header>      <nav class="navbar">
+        <div class="logo-container">
+          <!-- Logo supprimé -->
+        </div>
+        <ul>
+          <li>
+            <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+          </li>
+          <li>
+            <a href="formation.html" class="active"
+              ><i class="fas fa-graduation-cap"></i> Formation</a
+            >
+          </li>
+          <li>
+            <a href="experience.html"
+              ><i class="fas fa-briefcase"></i> Expérience</a
+            >
+          </li>          <li>
+            <a href="competences.html"
+              ><i class="fas fa-cogs"></i> Compétences</a
+            >
+          </li>
+          <li>
+            <a href="projets.html"
+              ><i class="fas fa-code-branch"></i> Projets</a
+            >
+          </li>
+          <li>
+            <a href="motivation.html"
+              ><i class="fas fa-book"></i> Mon Histoire</a
+            >
+          </li>
+          <li>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="formation-hero" data-aos="fade-up">
+        <h1 class="formation-title animate__animated animate__fadeInUp">
+          🎓 Ma Formation
+        </h1>
+        <p
+          class="formation-subtitle animate__animated animate__fadeInUp animate__delay-1s"
+        >
+          BUT Informatique à l'IUT de Villetaneuse - Une formation complète et
+          professionnalisante
+        </p>
+      </section>
+
+      <!-- Formation Content -->
+      <section class="formation-layout" data-aos="fade-up" data-aos-delay="200">
+        <div
+          class="formation-img-container"
+          data-aos="fade-right"
+          data-aos-delay="400"
+        >
+          <img
+            src="fac.jpg"
+            alt="Université Sorbonne Paris Nord - IUT de Villetaneuse"
+            class="formation-img"
+          />
+        </div>
+
+        <div
+          class="formation-content"
+          data-aos="fade-left"
+          data-aos-delay="600"
+        >
+          <h2><i class="fas fa-university"></i> BUT Informatique</h2>
+          <p>
+            Le BUT Informatique de l'Université Sorbonne Paris Nord – IUT de
+            Villetaneuse est bien plus qu'un simple diplôme : c'est une
+            formation professionnalisante et exigeante, pensée pour former des
+            développeurs complets, autonomes et prêts à relever les défis du
+            monde numérique.
+          </p>
+          <p>
+            Pendant trois ans, j'y ai acquis des compétences solides en
+            programmation (Python, Java, JavaScript), développement web, gestion
+            de bases de données (SQL, PostgreSQL), mais aussi en cybersécurité,
+            data, et conduite de projets.
+          </p>
+          <p>
+            Grâce à cette formation, j'ai participé à des projets concrets,
+            effectué un stage professionnalisant chez Alteca, et développé une
+            véritable culture du travail en équipe et de l'innovation. Le BUT
+            Informatique m'a donné les outils pour apprendre vite, m'adapter, et
+            construire des solutions utiles.
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section class="skills-section" data-aos="fade-up" data-aos-delay="800">
+        <h2 class="section-title">Compétences du BUT Informatique</h2>
+
+        <div class="skills-grid">
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="1000">
+            <div class="skill-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="skill-header">Réaliser</div>
+            <div class="skill-desc">
+              Développer des applications robustes et fiables avec les
+              meilleures pratiques de développement
+            </div>
+          </div>
+
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="1200">
+            <div class="skill-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="skill-header">Optimiser</div>
+            <div class="skill-desc">
+              Améliorer les performances des traitements et du code pour une
+              efficacité maximale
+            </div>
+          </div>
+
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="1400">
+            <div class="skill-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <div class="skill-header">Administrer</div>
+            <div class="skill-desc">
+              Concevoir et gérer des bases de données complexes et sécurisées
+            </div>
+          </div>
+
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="1600">
+            <div class="skill-icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="skill-header">Gérer et conduire un projet</div>
+            <div class="skill-desc">
+              Organiser, planifier et travailler en équipe sur des projets
+              complexes
+            </div>
+          </div>          <div class="skill-card" data-aos="fade-up" data-aos-delay="1800">
+            <div class="skill-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="skill-header">Communiquer</div>
+            <div class="skill-desc">
+              Présenter un projet de manière claire, que ce soit à l'écrit ou à
+              l'oral
+            </div>
+          </div>
+
+          <div class="skill-card" data-aos="fade-up" data-aos-delay="2000">
+            <div class="skill-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="skill-header">Travail en équipe</div>
+            <div class="skill-desc">
+              Collaborer efficacement au sein d'une équipe, partager les connaissances et s'adapter aux différents rôles
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="timeline" data-aos="fade-up" data-aos-delay="2000">
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="2200">
+          <div class="timeline-content">
+            <div class="timeline-year">2022-2025</div>
+            <div class="timeline-title">BUT Informatique</div>
+            <div class="timeline-desc">
+              Formation complète en développement, bases de données,
+              cybersécurité et gestion de projet
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="2400">
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-title">Stage chez Alteca</div>
+            <div class="timeline-desc">
+              Développement d'une plateforme de formation basée sur la donnée
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="2600">
+          <div class="timeline-content">
+            <div class="timeline-year">2025</div>
+            <div class="timeline-title">Recherche d'alternance</div>
+            <div class="timeline-desc">
+              Mise en pratique des compétences acquises dans un environnement
+              professionnel
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Habib Ben Mansour - Portfolio</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      // Loading Animation
+      window.addEventListener("load", function () {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+        }, 1000);
+      });
+
+      // Initialize AOS
+      AOS.init({
+        duration: 1000,
+        easing: "ease-in-out",
+        once: true,
+        mirror: false,
+      });
+
+      // Particles.js Configuration
+      particlesJS("particles-js", {
+        particles: {
+          number: {
+            value: 80,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: ["#6366f1", "#8b5cf6", "#06b6d4"],
+          },
+          shape: {
+            type: "circle",
+            stroke: {
+              width: 0,
+              color: "#000000",
+            },
+          },
+          opacity: {
+            value: 0.5,
+            random: false,
+            anim: {
+              enable: false,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false,
+            },
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: false,
+              speed: 40,
+              size_min: 0.1,
+              sync: false,
+            },
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#6366f1",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 6,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200,
+            },
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "repulse",
+            },
+            onclick: {
+              enable: true,
+              mode: "push",
+            },
+            resize: true,
+          },
+          modes: {
+            grab: {
+              distance: 400,
+              line_linked: {
+                opacity: 1,
+              },
+            },
+            bubble: {
+              distance: 400,
+              size: 40,
+              duration: 2,
+              opacity: 8,
+              speed: 3,
+            },
+            repulse: {
+              distance: 200,
+              duration: 0.4,
+            },
+            push: {
+              particles_nb: 4,
+            },
+            remove: {
+              particles_nb: 2,
+            },
+          },
+        },
+        retina_detect: true,
+      });
+
+      // Smooth Scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Header Scroll Effect
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(15, 23, 42, 0.95)";
+        } else {
+          header.style.background = "rgba(15, 23, 42, 0.8)";
+        }
+      });
+    </script>
+  </body>
+</html>
