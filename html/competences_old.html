@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compétences - Habib Ben Mansour</title>    <!-- Styles locaux pour éviter les problèmes de chargement -->
+    <style>
+      /* Icônes Font Awesome simplifiées */
+      .fa-code::before { content: "💻"; }
+      .fa-database::before { content: "🗄️"; }
+      .fa-tools::before { content: "🛠️"; }
+      .fa-chart-line::before { content: "📊"; }
+    </style>
+
+    <style>
+      :root {
+        --primary-color: #6366f1;
+        --secondary-color: #8b5cf6;
+        --accent-color: #06b6d4;
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: rgba(30, 41, 59, 0.6);
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-color: rgba(148, 163, 184, 0.1);
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        transition: all 0.3s ease;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .logo-uspn {
+        height: 50px;
+        width: auto;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .logo-uspn:hover {
+        transform: scale(1.1);
+      }
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .navbar a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .navbar a:hover,
+      .navbar a.active {
+        color: var(--text-primary);
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+      }
+      .navbar a.active::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 50%;
+      }
+
+      /* Main content */
+      main {
+        padding: 6rem 2rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+
+      .page-title {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .page-title h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      .page-title p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Skills container avec design moderne */
+      .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
+        margin-top: 4rem;
+      }
+
+      .skill-category {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 3rem;
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-category::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        border-radius: 30px 30px 0 0;
+      }
+
+      .skill-category:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 35px 85px rgba(0, 0, 0, 0.15);
+      }
+
+      .category-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .category-icon {
+        font-size: 3rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .category-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-item {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .skill-item:hover::before {
+        left: 100%;
+      }
+
+      .skill-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      }
+
+      .skill-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+      }
+
+      .skill-name {
+        font-weight: 600;
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .skill-level {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+      }
+
+      .skill-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+        margin-top: 1rem;
+        overflow: hidden;
+      }
+
+      .skill-progress {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        border-radius: 3px;
+        transition: width 2s ease;
+      }
+
+      /* Interactive Matrix concept */
+      .matrix-container {
+        margin: 6rem 0;
+        text-align: center;
+        position: relative;
+      }
+
+      .matrix-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 2rem;
+      }
+
+      .pills-container {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin: 4rem 0;
+      }
+
+      .pill {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .pill::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .pill:hover::before {
+        opacity: 1;
+        animation: shimmer 1.5s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) rotate(45deg);
+        }
+      }
+
+      .blue-pill {
+        background: linear-gradient(135deg, #1976d2, #42a5f5);
+      }
+
+      .red-pill {
+        background: linear-gradient(135deg, #d32f2f, #f44336);
+      }
+
+      .pill:hover {
+        transform: scale(1.1) rotateY(10deg);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .pill-icon {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      .pill-text {
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      /* Modal pour les détails */
+      .skill-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+      }
+
+      .modal-content {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 3rem;
+        max-width: 600px;
+        width: 90%;
+        border: 1px solid var(--glass-border);
+        position: relative;
+        animation: modalIn 0.3s ease;
+      }
+
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8) translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .modal-close:hover {
+        transform: rotate(90deg);
+        color: var(--accent-color);
+      }
+
+      .modal-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .modal-skills-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .modal-skills-list li {
+        background: rgba(255, 255, 255, 0.1);
+        margin: 1rem 0;
+        padding: 1rem;
+        border-radius: 15px;
+        color: white;
+        border-left: 4px solid var(--accent-color);
+      }
+
+      .modal-skills-list strong {
+        color: var(--accent-color);
+      }
+
+      /* Loading Animation */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--border-color);
+        border-top: 3px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .page-title h1 {
+          font-size: 2.5rem;
+        }
+
+        .skills-container {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .pills-container {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        .pill {
+          width: 150px;
+          height: 150px;
+        }
+
+        .navbar ul {
+          gap: 1rem;
+        }
+
+        .navbar a span {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading Overlay -->    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loader"></div>
+    </div>
+
+    <header>
+      <nav class="navbar">
+        <div class="logo-container">
+          <img src="Logo.png" alt="Logo USPN" class="logo-uspn" />
+        </div>
+        <ul>
+          <li>
+            <a href="index.html"
+              ><i class="fas fa-home"></i> <span>Accueil</span></a
+            >
+          </li>
+          <li>
+            <a href="formation.html"
+              ><i class="fas fa-graduation-cap"></i> <span>Formation</span></a
+            >
+          </li>
+          <li>
+            <a href="competences.html" class="active"
+              ><i class="fas fa-cogs"></i> <span>Compétences</span></a
+            >
+          </li>
+          <li>
+            <a href="experience.html"
+              ><i class="fas fa-briefcase"></i> <span>Expérience</span></a
+            >
+          </li>
+          <li>
+            <a href="Mes_Motivation.html"
+              ><i class="fas fa-book"></i> <span>Mon Histoire</span></a
+            >
+          </li>
+          <li>
+            <a href="contact.html"
+              ><i class="fas fa-envelope"></i> <span>Contact</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Page Title -->
+      <div class="page-title">
+        <h1>Mes Compétences</h1>
+        <p>
+          Une palette technique et humaine forgée par la passion et l'expérience
+        </p>
+      </div>
+
+      <!-- Matrix Concept -->
+      <div class="matrix-container">
+        <h2 class="matrix-title">Choisissez votre pilule</h2>
+        <div class="pills-container">
+          <div class="pill blue-pill" onclick="openModal('soft-skills')">
+            <i class="pill-icon fas fa-brain"></i>
+            <div class="pill-text">Soft Skills</div>
+          </div>
+          <div class="pill red-pill" onclick="openModal('hard-skills')">
+            <i class="pill-icon fas fa-code"></i>
+            <div class="pill-text">Hard Skills</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Categories -->
+      <div class="skills-container">
+        <!-- Développement -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="category-icon fas fa-code"></i>
+            <h3 class="category-title">Développement</h3>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <i class="skill-icon fab fa-python"></i>
+              <div class="skill-name">Python</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="85"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-js-square"></i>
+              <div class="skill-name">JavaScript</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="80"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-java"></i>
+              <div class="skill-name">Java</div>
+              <div class="skill-level">Intermédiaire</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="70"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-php"></i>
+              <div class="skill-name">PHP</div>
+              <div class="skill-level">Intermédiaire</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="75"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web & Frontend -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="category-icon fas fa-palette"></i>
+            <h3 class="category-title">Web & Frontend</h3>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <i class="skill-icon fab fa-html5"></i>
+              <div class="skill-name">HTML5</div>
+              <div class="skill-level">Expert</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="95"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-css3-alt"></i>
+              <div class="skill-name">CSS3</div>
+              <div class="skill-level">Expert</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="90"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-react"></i>
+              <div class="skill-name">React</div>
+              <div class="skill-level">Intermédiaire</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="70"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-bootstrap"></i>
+              <div class="skill-name">Bootstrap</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="80"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Base de données -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="category-icon fas fa-database"></i>
+            <h3 class="category-title">Base de données</h3>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <i class="skill-icon fas fa-database"></i>
+              <div class="skill-name">PostgreSQL</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="85"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fas fa-database"></i>
+              <div class="skill-name">SQL</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="80"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fas fa-chart-bar"></i>
+              <div class="skill-name">Power BI</div>
+              <div class="skill-level">Intermédiaire</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="70"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Outils & Méthodes -->
+        <div class="skill-category">
+          <div class="category-header">
+            <i class="category-icon fas fa-tools"></i>
+            <h3 class="category-title">Outils & Méthodes</h3>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <i class="skill-icon fab fa-git-alt"></i>
+              <div class="skill-name">Git</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="85"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fab fa-github"></i>
+              <div class="skill-name">GitHub</div>
+              <div class="skill-level">Avancé</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="80"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <i class="skill-icon fas fa-project-diagram"></i>
+              <div class="skill-name">Méthodes Agiles</div>
+              <div class="skill-level">Intermédiaire</div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-level="75"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="soft-skills-modal" class="skill-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h3 class="modal-title">🧠 Soft Skills</h3>
+        <ul class="modal-skills-list">
+          <li>
+            <strong>Détermination :</strong> Capacité à aller au bout des
+            projets, même face aux défis techniques complexes
+          </li>
+          <li>
+            <strong>Autonomie :</strong> Auto-formation continue et prise
+            d'initiatives dans l'apprentissage de nouvelles technologies
+          </li>
+          <li>
+            <strong>Travail en équipe :</strong> Écoute active, adaptation et
+            collaboration efficace lors des projets de groupe
+          </li>
+          <li>
+            <strong>Communication :</strong> Présentation claire de projets
+            techniques à différents publics
+          </li>
+          <li>
+            <strong>Créativité :</strong> Innovation dans la conception
+            d'interfaces utilisateur et résolution de problèmes
+          </li>
+          <li>
+            <strong>Adaptabilité :</strong> Flexibilité face aux nouvelles
+            technologies et méthodes de travail
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="hard-skills-modal" class="skill-modal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <h3 class="modal-title">💻 Hard Skills</h3>
+        <ul class="modal-skills-list">
+          <li>
+            <strong>Programmation :</strong> Python, JavaScript, Java, PHP avec
+            maîtrise des paradigmes orienté objet et fonctionnel
+          </li>
+          <li>
+            <strong>Développement Web :</strong> HTML5, CSS3, JavaScript ES6+,
+            React, frameworks modernes
+          </li>
+          <li>
+            <strong>Bases de Données :</strong> Conception, optimisation et
+            administration PostgreSQL, requêtes SQL complexes
+          </li>
+          <li>
+            <strong>Outils de développement :</strong> Git/GitHub, VS Code,
+            méthodologies Agile/Scrum
+          </li>
+          <li>
+            <strong>Data & Analytics :</strong> Power BI, analyse de données,
+            visualisation
+          </li>
+          <li>
+            <strong>Architecture :</strong> Modèle MVC, design patterns,
+            principes SOLID
+          </li>
+        </ul>
+      </div>
+    </div>    <!-- Scripts locaux -->
+    <script>
+      // Animation des barres de progression simplifiée
+      function animateSkillBars() {
+        const skillBars = document.querySelectorAll(".skill-progress");
+        skillBars.forEach((bar) => {
+          const level = bar.getAttribute("data-level");
+          setTimeout(() => {
+            bar.style.width = level + "%";
+          }, 500);
+        });
+      }
+
+      // Observer pour déclencher l'animation quand visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateSkillBars();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+
+      // Attendre que le DOM soit chargé
+      document.addEventListener('DOMContentLoaded', function() {
+        const skillsContainer = document.querySelector(".skills-container");
+        if (skillsContainer) {
+          observer.observe(skillsContainer);
+        }
+
+        // Fonctions pour les modals
+        window.openModal = function(type) {
+          const modal = document.getElementById(type + "-modal");
+          if (modal) {
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+          }
+        }
+
+        window.closeModal = function() {
+          const modals = document.querySelectorAll(".skill-modal");
+          modals.forEach((modal) => {
+            modal.style.display = "none";
+          });
+          document.body.style.overflow = "auto";
+        }
+
+        // Fermer modal en cliquant à l'extérieur
+        document.querySelectorAll(".skill-modal").forEach((modal) => {
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              closeModal();
+            }
+          });
+        });
+
+        // Header Scroll Effect
+        window.addEventListener("scroll", function () {
+          const header = document.querySelector("header");
+          if (header) {
+            if (window.scrollY > 100) {
+              header.style.background = "rgba(15, 23, 42, 0.95)";
+            } else {
+              header.style.background = "rgba(15, 23, 42, 0.8)";
+            }
+          }
+        });
+
+        // Effet de particules au survol des pilules (simplifié)
+        document.querySelectorAll(".pill").forEach((pill) => {
+          pill.addEventListener("mouseenter", function () {
+            this.style.transform = "scale(1.05)";
+          });
+          pill.addEventListener("mouseleave", function () {
+            this.style.transform = "scale(1)";
+          });
+        });
+
+        console.log("Page compétences chargée avec succès !");
+      });
+    </script>
+  </body>
+</html>

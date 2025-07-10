@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences par projet (SAÉ) - Habib Ben Mansour</title>
+
+    <!-- CDN Libraries -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="stylesheet" href="navigation.css" />
+    <link rel="stylesheet" href="projets-style.css" />
+    <link rel="stylesheet" href="logo-style.css" />
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(30, 41, 59, 0.6);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: rgba(148, 163, 184, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }        
+        
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Main content */
+        main {
+            padding: 6rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-family: "Poppins", sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-title p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @keyframes arrow-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Modal styles */
+        .project-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .competence-title {
+                font-size: 1.6rem;
+            }
+            
+            main {
+                padding: 6rem 1.25rem 2rem;
+            }
+        }        /* Style pour la section Ambition */
+        .project-ambition {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 6px;
+        }
+        
+        .project-ambition h4 {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .project-ambition h4 i {
+            margin-right: 0.4rem;
+            font-size: 0.9rem;
+        }
+        
+        .project-ambition p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .page-title p {
+                font-size: 1rem;
+            }
+            
+            .project-ambition {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>    <!-- Header & Navigation -->    <header>
+        <div class="navbar">
+            <div class="logo-container">
+                <!-- Logo supprimé -->
+            </div>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="competences.html"><i class="fas fa-cogs"></i> Compétences</a></li>
+                <li><a href="formation.html"><i class="fas fa-graduation-cap"></i> Formation</a></li>
+                <li><a href="experience.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+                <li><a href="projets.html" class="active"><i class="fas fa-project-diagram"></i> Projets</a></li>
+                <li><a href="motivation.html"><i class="fas fa-heart"></i> Mes motivations</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>        <div class="page-title">
+            <h1>Compétences par projet (SAÉ)</h1>
+            <p>Découvrez les projets académiques que j'ai réalisés durant ma formation, illustrant l'acquisition et le développement de mes compétences.</p>
+        </div><!-- Filters Section -->
+        <section class="filters-section">
+            <div class="competences-filter">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="realiser">Réaliser</button>
+                <button class="filter-btn" data-filter="optimiser">Optimiser</button>
+                <button class="filter-btn" data-filter="administrer">Administrer</button>
+                <button class="filter-btn" data-filter="gerer">Gérer et conduire un projet</button>
+                <button class="filter-btn" data-filter="communiquer">Communiquer</button>
+                <button class="filter-btn" data-filter="equipe">Travail en équipe</button>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="projects-section">            <div class="projects-grid">
+                <!-- Compétence 1: Réaliser -->                <div class="project-card" data-category="realiser">                    <div class="project-image">
+                        <div class="project-logo logo-santa">
+                            <i class="fas fa-gifts"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">                        <div class="project-header">
+                            <h3>SAÉ : Santa Claus - Simulation de production</h3>
+                            <span class="project-type">Compétence 1 : Réaliser</span>
+                        </div>
+                        <p>Developpement d'un algorithme Python simulant la production et la distribution de cadeaux par le Père Noël, avec implémentation de threads et synchronisation pour gérer les problèmes de concurrence.</p>                        <div class="project-tech">
+                            <span class="tech-tag python">
+                                <i class="fab fa-python"></i>
+                                Python
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-code-branch"></i>
+                                Threads
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-sync-alt"></i>
+                                Synchronisation
+                            </span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag realiser">Réaliser</span>
+                        </div>                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Python basique</li>
+                                        <li>Peu d'expérience en concurrence</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>Maîtrise des threads</li>
+                                        <li>Optimisation de code</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Approfondir mes connaissances en programmation concurrente pour concevoir des applications distribuées performantes, notamment dans le cadre de systèmes de gestion d'événements en temps réel.</p>
+                        </div>
+                    </div>                </div>
+
+                <!-- Compétence 3: Administrer --><div class="project-card" data-category="administrer">                    <div class="project-image">
+                        <div class="project-logo logo-database">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fas fa-database"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">                        <div class="project-header">
+                            <h3>SAÉ3 : Bases de Données avec PostgreSQL</h3>
+                            <span class="project-type">Compétence 3 : Gérer les Données</span>
+                        </div>
+                        <p>Conception et implémentation d'un système de gestion de base de données complet pour une bibliothèque universitaire, incluant modélisation MCD/MLD, requêtes SQL optimisées et procédures stockées avec PostgreSQL.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag sql">
+                                <i class="fas fa-database"></i>
+                                PostgreSQL
+                            </span>
+                            <span class="tech-tag">DB Designer 4</span>
+                            <span class="tech-tag">SQL</span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag administrer">Administrer</span>
+                        </div>                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">
+                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Bases de SQL</li>
+                                        <li>Modélisation limitée</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>SQL avancé</li>
+                                        <li>Modélisation MCD/MLD</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Explorer les systèmes de bases de données NoSQL et développer des compétences en conception de systèmes de données hybrides pour des applications à forte charge, en mettant l'accent sur la scalabilité et la performance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compétence 4: Conduire un projet -->                <div class="project-card" data-category="gerer equipe communiquer">                    <div class="project-image">
+                        <div class="project-logo logo-project">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fas fa-file-pdf"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">                        <div class="project-header">
+                            <h3>SAÉ : Rénovation d'une chambre</h3>
+                            <span class="project-type">Compétence 4 : Conduire un projet</span>
+                        </div>
+                        <p>Gestion complète d'un projet de rénovation immobilière en équipe, avec élaboration d'un cahier des charges détaillé, planification agile, budgétisation précise et coordination des différentes phases des travaux.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-tasks"></i>
+                                Gestion de projet
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-file-alt"></i>
+                                Cahier des charges
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-calculator"></i>
+                                Budgétisation
+                            </span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag gerer">Gérer</span>
+                            <span class="competence-tag equipe">Travail en équipe</span>
+                            <span class="competence-tag communiquer">Communiquer</span>
+                        </div>                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">
+                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Gestion basique</li>
+                                        <li>Communication simple</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>Cahiers des charges pro</li>
+                                        <li>Leadership</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Piloter des projets informatiques complexes en équipe multidisciplinaire, en appliquant des méthodologies agiles, et en développant mes compétences en leadership et en gestion de ressources humaines et matérielles.</p>
+                        </div>
+                    </div>
+                </div><!-- Compétence 5: Optimiser -->                <div class="project-card" data-category="optimiser">                    <div class="project-image">
+                        <div class="project-logo logo-math">
+                            <i class="fas fa-square-root-alt"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">                        <div class="project-header">
+                            <h3>SAÉ : Nombres complexes et fractale de Mandelbrot</h3>
+                            <span class="project-type">Compétence 5 : Optimiser</span>
+                        </div>                        <p>Implémentation d'un algorithme mathématique complexe pour générer et explorer les propriétés des fractales de Mandelbrot en Python, avec optimisation des performances et visualisation graphique avancée utilisant matplotlib.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag python">
+                                <i class="fab fa-python"></i>
+                                Python
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-chart-line"></i>
+                                Matplotlib
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-square-root-alt"></i>
+                                Nombres complexes
+                            </span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag optimiser">Optimiser</span>
+                        </div>                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">
+                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Maths basiques</li>
+                                        <li>Algos non optimisés</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>Nombres complexes</li>
+                                        <li>Optimisation d'algos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Explorer davantage le domaine de la visualisation de données et du calcul scientifique, avec l'objectif d'appliquer ces connaissances dans des domaines comme l'IA ou la simulation physique pour des applications industrielles.</p>
+                        </div>
+                    </div>
+                </div><!-- Compétence 6: Travail en équipe informatique -->                <div class="project-card" data-category="equipe communiquer">                    <div class="project-image">
+                        <div class="project-logo logo-interview">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fas fa-file-pdf"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">                        <div class="project-header">
+                            <h3>SAÉ : Interview d'un professionnel</h3>
+                            <span class="project-type">Compétence 6 : Travailler en équipe informatique</span>
+                        </div>
+                        <p>Conduite d'un projet de recherche en équipe incluant la préparation, la réalisation et l'analyse d'une interview avec un professionnel de l'informatique, suivie de la rédaction collaborative d'un rapport technique détaillé.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-users"></i>
+                                Travail collaboratif
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-comments"></i>
+                                Techniques d'interview
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-file-word"></i>
+                                Rédaction
+                            </span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag equipe">Travail en équipe</span>
+                            <span class="competence-tag communiquer">Communiquer</span>
+                        </div>
+                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">
+                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Communication limitée</li>
+                                        <li>Collaboration simple</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>Communication pro</li>
+                                        <li>Rédaction technique</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Développer mes compétences en communication technique pour faciliter le dialogue entre équipes techniques et non-techniques, et participer à la vulgarisation des enjeux informatiques auprès de différents publics.</p>
+                        </div>
+                    </div>
+                </div>
+                  <!-- Projet Java : Calculatrice orientée objet -->
+                <div class="project-card" data-category="realiser">                    <div class="project-image">
+                        <div class="project-logo logo-calculator">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>SAÉ : Calculatrice orientée objet</h3>
+                            <span class="project-type">Compétence 1 : Réaliser</span>
+                        </div>
+                        <p>Création d'une calculatrice modulaire en Java capable de gérer des opérations arithmétiques de base à l'aide de l'héritage, du polymorphisme, et de la composition d'expressions, avec implémentation du pattern "Expression récursive".</p>
+                        <div class="project-tech">
+                            <span class="tech-tag java">
+                                <i class="fab fa-java"></i>
+                                Java
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-code"></i>
+                                POO
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-sitemap"></i>
+                                UML
+                            </span>
+                        </div>
+                        <div class="project-competence">
+                            <span class="competence-tag realiser">Réaliser</span>
+                        </div>                        <!-- Évolution des compétences (visible au survol) -->                        <div class="project-evolution">
+                            <h4 class="evolution-title">Avant → Après</h4>
+                            <div class="evolution-container">
+                                <div class="evolution-card">
+                                    <h5>Avant</h5>
+                                    <ul>
+                                        <li>Java basique</li>
+                                        <li>POO théorique</li>
+                                    </ul>
+                                </div>
+                                <div class="evolution-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="evolution-card">
+                                    <h5>Après</h5>
+                                    <ul>
+                                        <li>Héritage & Polymorphisme</li>
+                                        <li>Modélisation UML</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-ambition">
+                            <h4><i class="fas fa-rocket"></i> Ambition</h4>
+                            <p>Approfondir mes compétences en Java en découvrant des frameworks plus avancés (comme Spring), et explorer des bibliothèques orientées data comme Pandas ou NumPy en Python, pour développer des applications mêlant logique métier, traitement de données et interface utilisateur.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialisation AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(15, 23, 42, 0.9)';
+            } else {
+                header.style.background = 'rgba(15, 23, 42, 0.8)';
+            }
+        });
+
+        // Filtres pour les projets
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Activer le bouton sélectionné
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Récupérer la valeur du filtre
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Filtrer les projets
+                    projectCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'flex';
+                        } else {
+                            if (card.getAttribute('data-category').includes(filterValue)) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Gestion des modals pour les projets (si vous les implémentez plus tard)
+            const projectLinks = document.querySelectorAll('.project-link');
+            const projectModals = document.querySelectorAll('.project-modal');
+            const closeButtons = document.querySelectorAll('.close-modal');
+            
+            // Ouvrir la modal
+            projectLinks.forEach(link => {
+                if(link.classList.contains('project-details')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const modalId = link.getAttribute('data-modal');
+                        const modal = document.getElementById(modalId);
+                        if(modal) {
+                            modal.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                        }
+                    });
+                }
+            });
+            
+            // Fermer la modal avec le bouton X
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.project-modal');
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            // Fermer la modal en cliquant en dehors
+            window.addEventListener('click', (e) => {
+                projectModals.forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
