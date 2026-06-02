@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bilan BUT3 Informatique de Habib Ben Mansour : auto-évaluation compétences C1/C5/C6, bilan SAE AirAtlas et stage Biotonix, objectifs et poursuite d'études à l'ESIEA." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <title>Bilan BUT3 — Habib Ben Mansour</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* ── Table of contents ───────────────────────────────────── */
+    .toc {
+      background: rgba(22, 27, 39, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 3rem;
+    }
+    .toc-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.6rem;
+    }
+    .toc-link {
+      display: flex; align-items: center; gap: 0.65rem;
+      padding: 0.65rem 1rem; border-radius: var(--radius-sm);
+      background: rgba(59, 130, 246, 0.04); border: 1px solid var(--border);
+      color: var(--text-soft); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: all var(--transition);
+    }
+    .toc-link i { color: var(--primary); font-size: 0.82rem; width: 14px; text-align: center; }
+    .toc-link:hover { background: rgba(59, 130, 246, 0.1); border-color: var(--border-blue); color: var(--text); transform: translateX(3px); }
+
+    /* ── Card internals ──────────────────────────────────────── */
+    .card + .card { margin-top: 1.5rem; }
+
+    .card-title {
+      font-size: 1.3rem; font-weight: 700; color: var(--text);
+      margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .card-subtitle {
+      font-size: 0.82rem; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.3px; margin-bottom: 1.75rem;
+    }
+
+    .sub-section { margin-top: 1.5rem; }
+    .sub-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--primary);
+      margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .sub-title i { font-size: 0.85rem; }
+
+    /* ── Competences table ───────────────────────────────────── */
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    .comp-table th {
+      background: rgba(59, 130, 246, 0.08); color: var(--accent);
+      padding: 0.9rem 1.1rem; text-align: left; font-size: 0.82rem;
+      font-weight: 700; letter-spacing: 0.4px;
+      border-bottom: 1px solid var(--border-blue);
+    }
+    .comp-table td {
+      padding: 1.25rem 1.1rem; border-bottom: 1px solid var(--border);
+      color: var(--text-soft); vertical-align: top; font-size: 0.92rem; line-height: 1.75;
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: rgba(59, 130, 246, 0.03); }
+    .comp-table strong { color: var(--text); font-weight: 600; }
+    .comp-name { color: var(--text); font-weight: 700; font-size: 0.95rem; }
+
+    /* ── Level bars (comp table) ─────────────────────────────── */
+    .level-wrap { margin-top: 0.6rem; }
+    .level-bar {
+      height: 6px; background: rgba(59, 130, 246, 0.09);
+      border-radius: 10px; overflow: hidden;
+    }
+    .level-fill {
+      height: 100%; width: 0; border-radius: 10px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .level-label {
+      font-size: 0.77rem; color: var(--accent);
+      margin-top: 0.3rem; font-weight: 600;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.7rem; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 700;
+    }
+    .status-ok  { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: var(--success); }
+    .status-wip { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: var(--warning); }
+
+    /* ── Objectives grid ─────────────────────────────────────── */
+    .obj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 0.5rem;
+    }
+    .obj-card {
+      background: rgba(22, 27, 39, 0.75); backdrop-filter: blur(20px);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 1.75rem; border-top: 3px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .obj-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .obj-card.court { border-top-color: var(--success); }
+    .obj-card.moyen { border-top-color: var(--warning); }
+    .obj-card.long  { border-top-color: var(--purple); }
+
+    .obj-horizon {
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    .obj-card.court .obj-horizon { color: var(--success); }
+    .obj-card.moyen .obj-horizon { color: var(--warning); }
+    .obj-card.long  .obj-horizon { color: var(--purple); }
+
+    .obj-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
+    .obj-card p  { color: var(--text-soft); font-size: 0.9rem; line-height: 1.75; }
+
+    /* ── Passport grid ───────────────────────────────────────── */
+    .passport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+    .passport-item {
+      background: rgba(22, 27, 39, 0.75); backdrop-filter: blur(20px);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .passport-item:hover { border-color: var(--border-blue); transform: translateY(-3px); }
+    .passport-item h3 {
+      font-size: 1rem; font-weight: 700; color: var(--text);
+      margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .passport-item h3 i { color: var(--primary); }
+    .passport-item p { color: var(--text-soft); font-size: 0.9rem; line-height: 1.8; }
+    .passport-item strong { color: var(--text); font-weight: 600; }
+
+    /* ── Pride card ──────────────────────────────────────────── */
+    .pride-card {
+      background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.07));
+      border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);
+      padding: 2.5rem; position: relative; overflow: hidden;
+    }
+    .pride-card::before {
+      content: '"'; position: absolute; top: -1.5rem; left: 1.5rem;
+      font-size: 9rem; color: rgba(59,130,246,0.06);
+      font-family: Georgia, serif; line-height: 1; pointer-events: none;
+    }
+    .pride-card p { color: var(--text-soft); line-height: 1.9; font-size: 1rem; margin-bottom: 1rem; }
+    .pride-card p:last-child { margin-bottom: 0; }
+    .pride-card strong { color: var(--text); font-weight: 600; }
+
+    /* ── Discovery grid ──────────────────────────────────────── */
+    .discovery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 1.5rem;
+    }
+    .discovery-item {
+      background: rgba(22, 27, 39, 0.6); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color var(--transition);
+    }
+    .discovery-item:hover { border-color: var(--border-blue); }
+    .discovery-icon {
+      width: 42px; height: 42px; border-radius: 11px;
+      background: rgba(59, 130, 246, 0.1); border: 1px solid var(--border-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--primary); margin-bottom: 1rem;
+    }
+    .discovery-item h3 { font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+    .discovery-item p  { color: var(--text-soft); font-size: 0.88rem; line-height: 1.78; }
+    .discovery-item strong { color: var(--text); font-weight: 600; }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .obj-grid { grid-template-columns: 1fr; }
+      .comp-table th, .comp-table td { padding: 0.75rem; font-size: 0.82rem; }
+    }
+    @media (max-width: 600px) {
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loader" id="loader"><div class="loader-ring"></div></div>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">HBM</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="formation.html"><i class="fas fa-graduation-cap"></i> Formation</a></li>
+        <li><a href="competences.html"><i class="fas fa-code"></i> Compétences</a></li>
+        <li><a href="experience.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+        <li><a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a></li>
+        <li><a href="certifications.html"><i class="fas fa-certificate"></i> Certifications</a></li>
+        <li><a href="contact.html"><i class="fas fa-paper-plane"></i> Contact</a></li>
+        <li><a href="bilan.html" class="active"><i class="fas fa-chart-line"></i> Bilan BUT3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header reveal">
+      <div class="badge"><i class="fas fa-chart-line"></i> Réflexion &amp; Auto-évaluation</div>
+      <h1>Bilan BUT Informatique</h1>
+      <p>Auto-évaluation, réflexions personnelles, découverte du monde professionnel et perspectives — S5 &amp; S6</p>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="toc reveal">
+      <div class="toc-label"><i class="fas fa-list-ul"></i> Navigation rapide</div>
+      <div class="toc-grid">
+        <a href="#sae"        class="toc-link"><i class="fas fa-flask"></i>        Bilan SAE S5 &amp; S6</a>
+        <a href="#competences" class="toc-link"><i class="fas fa-star"></i>         Auto-évaluation compétences</a>
+        <a href="#monde-pro"  class="toc-link"><i class="fas fa-building"></i>     Monde professionnel</a>
+        <a href="#decouverte" class="toc-link"><i class="fas fa-user-circle"></i>  Ce que j'ai découvert de moi</a>
+        <a href="#fierte"     class="toc-link"><i class="fas fa-trophy"></i>       Ma plus grande fierté</a>
+        <a href="#passeport"  class="toc-link"><i class="fas fa-globe"></i>        Passeport culturel</a>
+        <a href="#objectifs"  class="toc-link"><i class="fas fa-bullseye"></i>     Objectifs</a>
+        <a href="#poursuite"  class="toc-link"><i class="fas fa-university"></i>   Poursuite d'études</a>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 1 : SAE ===== -->
+    <section id="sae">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-flask"></i></div>
+        <h2>Bilan des SAE — Semestres 5 &amp; 6</h2>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">
+          <i class="fas fa-plane" style="color: var(--accent);"></i>
+          SAE S5 — AirAtlas, Application de recommandation de voyages
+        </div>
+        <div class="card-subtitle">Semestre 5 · 2025–2026 · Projet collectif</div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-bullseye"></i> Objectif du projet</div>
+          <p>AirAtlas, c'était une appli mobile pour recommander des voyages personnalisés. L'idée : l'utilisateur décrit ce qu'il cherche, un modèle de Machine Learning (<strong>Mini LM</strong>) analyse ça et propose des destinations qui lui correspondent vraiment. Sur le papier c'est simple. En pratique, intégrer un modèle ML dans une API REST consommée par React Native, avec une deadline de semestre, c'est une autre affaire.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-user-cog"></i> Ma contribution</div>
+          <p>J'ai travaillé sur le <strong>backend Python</strong> : l'API REST avec Flask, l'intégration de Mini LM, et la base de données SQLite. J'ai aussi participé aux choix d'architecture en début de projet — comment structurer les données, quels endpoints exposer. C'est moi qui ai proposé le format JSON final des réponses, après quelques allers-retours avec l'équipe front pour qu'on s'y retrouve tous.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-exclamation-triangle"></i> Difficultés rencontrées</div>
+          <p>Le point le plus difficile, c'était les <strong>temps de réponse de l'API</strong>. Mini LM c'est pas léger — au début certaines requêtes prenaient plusieurs secondes, inutilisable sur mobile. On a testé la mise en cache des embeddings, le pré-calcul au démarrage... ça nous a pris bien plus de temps que prévu. Côté équipe, en fin de sprint on avait aussi du mal à synchroniser front et back. On partait un peu dans tous les sens, chacun de son côté.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-lightbulb"></i> Ce que j'en ai appris</div>
+          <p>Ce que j'ai surtout retenu, c'est que le code ne suffit pas. Une bonne API mal documentée, ça ne sert à rien. J'ai appris à écrire mes endpoints dès que je les créais, à ne pas attendre le dernier moment pour signaler un blocage à l'équipe. Et j'ai compris que dans un projet collectif, <strong>la communication compte autant que le code</strong> — sinon plus.</p>
+        </div>
+
+        <div class="tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Python / Flask</span>
+          <span class="tag">API REST</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Mini LM</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">
+          <i class="fas fa-globe-americas" style="color: var(--success);"></i>
+          SAE S6 — Stage Biotonix · Développeur Full-Stack (Canada)
+        </div>
+        <div class="card-subtitle">Semestre 6 · Avril – Juillet 2026 · Mobilité internationale — Montréal, Québec</div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-tasks"></i> Mes responsabilités</div>
+          <p>La première semaine, honnêtement, j'étais un peu perdu. Le codebase était énorme, en <strong>.NET/C#</strong> que j'avais peu pratiqué, et je ne connaissais pas les conventions de l'équipe. J'ai passé les premiers jours à lire du code sans toucher à grand-chose. Mes premières missions : corrections de tests unitaires backend. Ensuite j'ai travaillé côté <strong>Angular/Ionic</strong>, sur des bugs d'affichage de données de santé et des améliorations de navigation. Tout ça en production — des vrais utilisateurs derrière.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-tools"></i> Outils mobilisés</div>
+          <p>J'ai dû m'adapter vite. <strong>.NET Core/C#</strong> ça n'a rien à voir avec Java ou Python — les patterns, Entity Framework, SQL Server... Les deux premières semaines j'avais peur de casser quelque chose à chaque commit. <strong>Azure DevOps</strong> pour les tickets et les sprints, Git avec des conventions de branches strictes (pas de merge sur main sans PR validée). Après deux sprints, j'étais vraiment dans le rythme.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-users"></i> Travail en équipe à l'international</div>
+          <p>Ce qui m'a le plus surpris, c'est le style de retour. Un senior pouvait commenter ma PR avec 15 remarques et finir par "beau travail, bon réflexe". En France j'aurais peut-être mal vécu ça. Au Québec, les retours sont directs mais jamais méchants. J'ai arrêté de prendre les <strong>revues de code</strong> personnellement et j'ai commencé à les attendre — parce que j'apprenais vraiment à chaque fois.</p>
+        </div>
+
+        <div class="tags">
+          <span class="tag">.NET Core / C#</span>
+          <span class="tag">Angular</span>
+          <span class="tag">Ionic</span>
+          <span class="tag">SQL Server / Entity Framework</span>
+          <span class="tag">Azure DevOps</span>
+          <span class="tag">Git / Pull Requests</span>
+          <span class="tag">Agile</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 2 : Compétences BUT ===== -->
+    <section id="competences">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-star"></i></div>
+        <h2>Tableau d'auto-évaluation — 3 Compétences BUT</h2>
+      </div>
+
+      <div class="card reveal">
+        <p style="margin-bottom: 1.5rem;">Le BUT Informatique s'articule autour de six compétences nationales. Voici mon auto-évaluation honnête pour les trois compétences que j'estime avoir le mieux développées au cours de mes trois années, avec les preuves concrètes à l'appui.</p>
+
+        <div style="overflow-x: auto;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th style="min-width:180px;">Compétence BUT</th>
+                <th style="min-width:110px;">Niveau</th>
+                <th style="min-width:200px;">Preuves / Réalisations</th>
+                <th style="min-width:220px;">Auto-évaluation</th>
+                <th style="min-width:190px;">Difficultés &amp; progression</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="comp-name">C1 — Réaliser un développement d'application</div>
+                  <div class="level-wrap">
+                    <div class="level-bar"><div class="level-fill" data-w="85"></div></div>
+                    <div class="level-label">Niveau 3 — 85 %</div>
+                  </div>
+                </td>
+                <td><span class="status-badge status-ok">Niveau 3 confirmé</span></td>
+                <td>
+                  <strong>AirAtlas</strong> (React Native, Python, Mini LM) ;<br>
+                  <strong>Biotonix</strong> — code en production (.NET/Angular/Ionic) ;<br>
+                  <strong>Jeu Naruto 2D</strong> — Pygame, machine à états, OpenCV
+                </td>
+                <td>C'est probablement la compétence où j'ai le plus progressé. Avant Biotonix, je savais coder. Après, je sais lire et modifier un code que je n'ai pas écrit — dans une stack que je ne connaissais pas. Au début ça déstabilise. Maintenant c'est un exercice que j'apprécierais presque.</td>
+                <td>
+                  <strong>Difficulté :</strong> Arriver dans un projet sans doc, sans connaître les conventions de l'équipe.<br>
+                  <strong>Progression :</strong> Lire les tests avant le code — ils disent ce que le code est censé faire, souvent mieux qu'une doc.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comp-name">C5 — Conduire un projet</div>
+                  <div class="level-wrap">
+                    <div class="level-bar"><div class="level-fill" data-w="72"></div></div>
+                    <div class="level-label">Niveau 3 — 72 %</div>
+                  </div>
+                </td>
+                <td><span class="status-badge status-wip">Niveau 3 en cours</span></td>
+                <td>
+                  <strong>SAE S5 AirAtlas</strong> — planification Agile, répartition des rôles ;<br>
+                  <strong>Nuit de l'Info 2026</strong> — livraison complète en 12h ;<br>
+                  Azure DevOps, Git branching strategy
+                </td>
+                <td>La Nuit de l'Info m'a mis face à mes limites : à 2h du matin avec une deadline à 8h, j'avais tendance à vouloir tout faire moi-même plutôt que faire confiance à l'équipe. J'ai appris à la dure que déléguer c'est pas abandonner le contrôle.</td>
+                <td>
+                  <strong>Difficulté :</strong> On surestimait toujours ce qu'on pouvait faire en deux semaines.<br>
+                  <strong>Progression :</strong> Découper les user stories dès qu'elles semblent trop grosses — ça a changé notre rythme.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comp-name">C6 — Collaborer au sein d'une équipe informatique</div>
+                  <div class="level-wrap">
+                    <div class="level-bar"><div class="level-fill" data-w="88"></div></div>
+                    <div class="level-label">Niveau 3 — 88 %</div>
+                  </div>
+                </td>
+                <td><span class="status-badge status-ok">Niveau 3 maîtrisé</span></td>
+                <td>
+                  <strong>Biotonix</strong> — intégration dans une équipe professionnelle internationale ;<br>
+                  <strong>Nuit de l'Info</strong> — travail collaboratif sous contrainte ;<br>
+                  Pull Requests, code reviews, Azure DevOps
+                </td>
+                <td>Celle dont je suis le plus fier, sincèrement. Pas parce que je suis quelqu'un de particulièrement facile à vivre — mais parce que j'ai vraiment changé ma façon de travailler avec les autres pendant ce stage.</td>
+                <td>
+                  <strong>Difficulté :</strong> Les différences culturelles dans la façon d'exprimer un désaccord technique.<br>
+                  <strong>Progression :</strong> Reconnaître ce qui est bien avant de suggérer une alternative — ça change tout dans la dynamique d'équipe.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 3 : Monde professionnel ===== -->
+    <section id="monde-pro">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-building"></i></div>
+        <h2>Découverte du monde professionnel</h2>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">
+          <i class="fas fa-leaf" style="color: var(--warning);"></i>
+          Culture d'entreprise — Biotonix, Montréal (Canada)
+        </div>
+        <div class="card-subtitle">Startup health-tech · Équipe internationale · Méthode Agile</div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-sitemap"></i> Une hiérarchie horizontale qui responsabilise</div>
+          <p>Dès ma première semaine, mon tuteur m'a assigné un vrai ticket sur l'appli en prod. Pas un exercice, pas un environnement de test — une vraie correction avec impact utilisateur. J'hésitais à pousser mes modifications, j'avais peur de casser quelque chose. Mais personne ne regardait par-dessus mon épaule. <strong>La confiance était là par défaut</strong>, c'était à moi de ne pas la décevoir. Ça change complètement la façon dont on travaille.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-comments"></i> Pratiques et réunions</div>
+          <p>Les sprints duraient deux semaines. Le matin : un stand-up de 15 minutes max, chacun dit ce qu'il a fait, ce qu'il va faire, et ce qui bloque. C'est tout. Pas de réunions inutiles. La <strong>revue de sprint</strong> du vendredi : pas de slides, juste une démo de ce qui est livré. Au début je trouvais ça un peu intimidant. Après deux sprints, j'adorais — parce qu'on voyait vraiment ce qu'on avait accompli.</p>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-title"><i class="fas fa-balance-scale"></i> Gestion des conflits et des désaccords techniques</div>
+          <p>Il y a eu une fois où j'avais une approche différente de mon tech lead sur la structure d'un endpoint. J'ai défendu ma solution dans la PR, avec des arguments sur la lisibilité et la maintenabilité. Il a modifié son retour, on a trouvé un compromis. Ce genre d'échange — <strong>technique, respectueux, basé sur des arguments</strong> — m'a montré ce que c'est un désaccord sain dans une équipe professionnelle.</p>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Agile / Scrum</span>
+          <span class="tag">Azure DevOps</span>
+          <span class="tag">Pull Requests</span>
+          <span class="tag">Code Reviews</span>
+          <span class="tag">Stand-ups</span>
+          <span class="tag">Culture Québécoise</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 4 : Découverte de soi ===== -->
+    <section id="decouverte">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-user-circle"></i></div>
+        <h2>Ce que j'ai découvert de moi-même</h2>
+      </div>
+
+      <div class="card reveal">
+        <div class="quote">
+          "Ce stage m'a moins appris l'informatique que la façon dont je fonctionne — sous pression, au contact des autres, loin de chez moi."
+        </div>
+
+        <div class="discovery-grid">
+          <div class="discovery-item">
+            <div class="discovery-icon"><i class="fas fa-globe"></i></div>
+            <h3>Adaptation culturelle</h3>
+            <p>Je m'attendais à ce que l'intégration soit difficile. Les premières semaines, j'avais du mal à trouver mes marques — les tournures québécoises, le rythme différent, les blagues que je ne comprenais pas toujours. Mais j'ai découvert que je suis quelqu'un qui <strong>s'adapte vite quand il fait l'effort d'observer</strong> plutôt que de rester dans sa bulle.</p>
+          </div>
+
+          <div class="discovery-item">
+            <div class="discovery-icon"><i class="fas fa-heartbeat"></i></div>
+            <h3>Résilience face aux blocages</h3>
+            <p>Il y a eu un bug que je n'arrivais pas à résoudre pendant deux jours. Avant, j'aurais paniqué ou demandé de l'aide trop vite. Cette fois-là j'ai isolé le problème, j'ai écrit ce que je savais et ce que je ne savais pas, j'ai testé des hypothèses. Et j'ai trouvé. C'est ce jour-là que j'ai réalisé que <strong>ma façon de raisonner avait changé</strong>.</p>
+          </div>
+
+          <div class="discovery-item">
+            <div class="discovery-icon"><i class="fas fa-comment-dots"></i></div>
+            <h3>Rapport à la critique</h3>
+            <p>Au début, quand un senior commentait abondamment ma PR, j'avais un peu de mal à le recevoir. On met du temps sur quelque chose, on pense que c'est bien... Mais j'ai réalisé que les commentaires n'étaient jamais méchants — ils étaient <strong>utiles</strong>. J'ai commencé à les lire comme un cours particulier gratuit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 5 : Fierté ===== -->
+    <section id="fierte">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-trophy"></i></div>
+        <h2>Ce dont je suis le plus fier</h2>
+      </div>
+
+      <div class="pride-card reveal">
+        <p>Ce dont je suis vraiment fier, c'est pas d'avoir appris .NET ou Angular — ça, ça s'apprend. C'est d'avoir été traité comme un membre de l'équipe à part entière, pas comme "le stagiaire". Quand mon code a été mergé en production pour la première fois, j'ai eu une sensation que je n'avais jamais eue avec aucun projet scolaire.</p>
+        <p>Quelqu'un, quelque part, utilisait ce que j'avais écrit. C'est là que j'ai compris ce que ça voulait dire concrètement, <strong>faire ce métier</strong>.</p>
+        <p>Si je devais résumer ces trois ans, je dirais : je suis parti avec des bases solides, je me suis retrouvé à Montréal sans trop savoir ce qui m'attendait, et je suis rentré avec une certitude — <strong>je suis capable de contribuer dans un vrai projet, en équipe, à l'international</strong>. Pas juste de rendre des projets scolaires.</p>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 6 : Passeport culturel ===== -->
+    <section id="passeport">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-globe"></i></div>
+        <h2>Passeport culturel</h2>
+      </div>
+
+      <div class="passport-grid reveal-group">
+        <div class="passport-item">
+          <h3><i class="fas fa-plane-departure"></i> Quatre mois à Montréal</h3>
+          <p>J'ai vécu dans un appart avec des colocataires québécois, fait mes courses en dollars canadiens, appris les expressions locales. Professionnellement, j'ai découvert un marché du travail <strong>plus horizontal et moins formel</strong> qu'en France — où l'esprit startup est présent même dans les boîtes établies. Ça m'a ouvert les yeux sur ce que peut être un environnement de travail.</p>
+        </div>
+
+        <div class="passport-item">
+          <h3><i class="fas fa-moon"></i> Nuit de l'Info 2026</h3>
+          <p>On était 4, il était 21h, on venait de découvrir le sujet. À 3h du matin on avait quelque chose qui marchait. À 7h30 on avait quelque chose dont on était fiers. La <strong>Nuit de l'Info</strong>, c'est le projet le plus intense que j'ai fait — et probablement celui dont je parle le plus souvent.</p>
+        </div>
+
+        <div class="passport-item">
+          <h3><i class="fas fa-rss"></i> Veille technologique</h3>
+          <p>Je lis <strong>Hacker News</strong> presque tous les jours. Pas pour suivre des tendances — parce que j'aime comprendre pourquoi les gens construisent ce qu'ils construisent. Les post-mortems d'incidents (quand une boîte explique ce qui a planté) sont mes lectures préférées. On apprend plus sur la vraie ingénierie en lisant un incident Cloudflare qu'en regardant un tutoriel.</p>
+        </div>
+
+        <div class="passport-item">
+          <h3><i class="fas fa-certificate"></i> Certifications & formation continue</h3>
+          <p>J'ai passé les certifications <strong>IBM AI Fundamentals</strong> et <strong>Cisco Data Science</strong> pendant mon BUT — un peu par curiosité, surtout pour cadrer ce que j'apprenais en cours. Quand quelque chose m'échappe, j'ai du mal à faire semblant de ne pas m'en soucier.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 7 : Objectifs ===== -->
+    <section id="objectifs">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-bullseye"></i></div>
+        <h2>Objectifs à court, moyen et long terme</h2>
+      </div>
+
+      <div class="obj-grid reveal-group">
+        <div class="obj-card court">
+          <div class="obj-horizon">Court terme · Septembre 2026 ✓</div>
+          <h3>ESIEA — Analyste Développeur RPA chez Manpower</h3>
+          <p>C'est fait. Je rejoins l'<strong>ESIEA</strong> en septembre 2026, en alternance chez <strong>Manpower</strong> comme Analyste Développeur RPA. Honnêtement, je ne savais pas vraiment ce qu'était le RPA il y a 6 mois. Aujourd'hui je suis convaincu que c'est exactement là où je veux être : à la frontière entre la technique et le métier.</p>
+        </div>
+
+        <div class="obj-card moyen">
+          <div class="obj-horizon">Moyen terme · 2–3 ans</div>
+          <h3>Devenir ingénieur logiciel</h3>
+          <p>Dans 2-3 ans, ingénieur logiciel dans une équipe qui fait des choses qui comptent. Une boîte où on me fait confiance, où j'apprends des autres. Le Canada m'a montré que ce genre d'environnement existe. Je sais maintenant <strong>ce que je cherche</strong>.</p>
+        </div>
+
+        <div class="obj-card long">
+          <div class="obj-horizon">Long terme · 5–10 ans</div>
+          <h3>Lead tech ou entrepreneur</h3>
+          <p>Honnêtement je ne sais pas encore exactement. Lead tech, peut-être. Entrepreneur, peut-être. Ce que je sais, c'est que je veux <strong>construire quelque chose</strong> — un produit, une équipe, un outil que d'autres utilisent vraiment. Le reste se précisera.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 8 : Poursuite d'études ===== -->
+    <section id="poursuite">
+      <div class="section-heading reveal">
+        <div class="sh-icon"><i class="fas fa-university"></i></div>
+        <h2>Définition de la poursuite d'études</h2>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-title">
+          <i class="fas fa-route" style="color: var(--accent);"></i>
+          Après le BUT — Pourquoi une école d'ingénieurs ?
+        </div>
+
+        <p>Le BUT m'a bien préparé. Mais le stage Biotonix m'a montré qu'il y a des choses que je ne sais pas encore faire : concevoir une architecture de zéro, raisonner sur des systèmes distribués, gérer des contraintes de sécurité à grande échelle. Ce sont des compétences d'ingénieur — elles ne s'acquièrent pas seul, et pas en 3 ans de BUT.</p>
+
+        <p>J'aurais pu chercher un poste direct après le BUT. J'ai choisi l'<strong>ESIEA en alternance</strong> parce que je ne pouvais pas me voir passer à un cursus 100% théorique après 3 ans où la pratique était au cœur de tout. L'alternance me permet de continuer à travailler pendant que j'apprends — et de garder les pieds sur terre.</p>
+
+        <div class="quote">
+          "J'ai besoin de comprendre pourquoi quelque chose fonctionne avant de pouvoir vraiment l'utiliser. L'ESIEA me donnera le pourquoi. L'alternance me gardera ancré dans le comment."
+        </div>
+
+        <div class="tags">
+          <span class="tag">École d'ingénieurs</span>
+          <span class="tag">Alternance</span>
+          <span class="tag">Génie logiciel</span>
+          <span class="tag">Architecture système</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <div class="footer-links">
+            <a href="mailto:habib.benmansour281802@gmail.com"><i class="fas fa-envelope"></i> habib.benmansour281802@gmail.com</a>
+            <a href="tel:+33604794119"><i class="fas fa-phone"></i> 06 04 79 41 19</a>
+          </div>
+        </div>
+        <div>
+          <h3>Réseaux</h3>
+          <div class="footer-links">
+            <a href="https://www.linkedin.com/in/habib-ben-mansour-475437297" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/habib11314" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div>
+          <h3>Documents</h3>
+          <div class="footer-links">
+            <a href="CV_BENMANSOUR_Habib_esiea.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Télécharger mon CV</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Habib Ben Mansour — Portfolio BUT3 Informatique · USPN</p>
+        <p>habib.benmansour281802@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600));
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => { toggle.classList.toggle('open'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { toggle.classList.remove('open'); navLinks.classList.remove('open'); }));
+
+    const io = new IntersectionObserver(e => e.forEach(x => {
+      if (x.isIntersecting) { x.target.classList.add('visible'); io.unobserve(x.target); }
+    }), { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-group').forEach(el => io.observe(el));
+
+    const barObs = new IntersectionObserver(e => e.forEach(x => {
+      if (x.isIntersecting) {
+        x.target.style.width = x.target.dataset.w + '%';
+        barObs.unobserve(x.target);
+      }
+    }), { threshold: 0.6 });
+    document.querySelectorAll('.level-fill').forEach(el => barObs.observe(el));
+  </script>
+</body>
+</html>

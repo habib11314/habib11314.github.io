@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Certifications professionnelles de Habib Ben Mansour : IBM AI Fundamentals et Cisco Introduction to Data Science — badges Credly vérifiés." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <title>Certifications — Habib Ben Mansour</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .cert-card {
+      background: rgba(22, 27, 39, 0.75);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2.5rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .cert-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .cert-card.ibm::before   { background: linear-gradient(90deg, #0062ff, #00539a); }
+    .cert-card.cisco::before { background: linear-gradient(90deg, #049fd9, #0077be); }
+
+    .cert-card:hover {
+      border-color: var(--border-blue); transform: translateY(-4px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(59,130,246,0.08);
+    }
+
+    .cert-header {
+      display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+
+    .cert-icon {
+      width: 64px; height: 64px; flex-shrink: 0; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: #fff;
+    }
+    .cert-card.ibm   .cert-icon { background: linear-gradient(135deg, #0062ff, #00539a); }
+    .cert-card.cisco .cert-icon { background: linear-gradient(135deg, #049fd9, #0077be); }
+
+    .cert-name { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+
+    .cert-issuer {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .cert-card.ibm   .cert-issuer { color: #60a5fa; }
+    .cert-card.cisco .cert-issuer { color: #38bdf8; }
+
+    .cert-date {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+
+    .cert-desc {
+      color: var(--text-soft); font-size: 0.92rem; line-height: 1.8;
+      margin-bottom: 1.5rem; flex: 1;
+    }
+
+    .cert-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 600; color: #fff;
+      text-decoration: none; transition: all var(--transition); align-self: flex-start;
+    }
+    .cert-card.ibm   .cert-btn { background: linear-gradient(135deg, #0062ff, #00539a); box-shadow: 0 6px 24px rgba(0,98,255,0.3); }
+    .cert-card.cisco .cert-btn { background: linear-gradient(135deg, #049fd9, #0077be); box-shadow: 0 6px 24px rgba(4,159,217,0.3); }
+    .cert-btn:hover { transform: translateX(4px) translateY(-1px); filter: brightness(1.1); }
+
+    /* Placeholder card */
+    .cert-card.placeholder {
+      border-style: dashed; border-color: rgba(148,163,184,0.15);
+      background: rgba(22,27,39,0.4);
+    }
+    .cert-card.placeholder::before { display: none; }
+    .cert-card.placeholder .cert-icon { background: rgba(59,130,246,0.1); border: 1px solid var(--border-blue); }
+    .cert-card.placeholder .cert-icon i { color: var(--primary); }
+    .cert-card.placeholder .cert-name { color: var(--text-soft); }
+    .cert-card.placeholder .cert-desc { font-style: italic; }
+
+    @media (max-width: 700px) {
+      .cert-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader"><div class="loader-ring"></div></div>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">HBM</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="formation.html"><i class="fas fa-graduation-cap"></i> Formation</a></li>
+        <li><a href="competences.html"><i class="fas fa-code"></i> Compétences</a></li>
+        <li><a href="experience.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+        <li><a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a></li>
+        <li><a href="certifications.html" class="active"><i class="fas fa-certificate"></i> Certifications</a></li>
+        <li><a href="contact.html"><i class="fas fa-paper-plane"></i> Contact</a></li>
+        <li><a href="bilan.html"><i class="fas fa-chart-line"></i> Bilan BUT3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <div class="badge"><i class="fas fa-award"></i> Badges & Certifications</div>
+      <h1>Certifications</h1>
+      <p>Certifications professionnelles obtenues en parallèle du cursus BUT — IA, Data Science et technologies cloud.</p>
+    </div>
+
+    <div class="cert-grid">
+
+      <!-- IBM -->
+      <div class="cert-card ibm reveal">
+        <div class="cert-header">
+          <div class="cert-icon"><i class="fas fa-brain"></i></div>
+          <div>
+            <div class="cert-name">IBM AI Fundamentals</div>
+            <div class="cert-issuer"><i class="fas fa-building"></i> IBM</div>
+            <div class="cert-date"><i class="fas fa-calendar-check"></i> 2025</div>
+          </div>
+        </div>
+        <p class="cert-desc">
+          Certification officielle IBM couvrant les fondamentaux de l'Intelligence Artificielle : Machine Learning, Deep Learning, traitement de données et éthique de l'IA. Badge Credly vérifié et partageable.
+        </p>
+        <a href="https://www.credly.com/badges/813b54ec-bd77-4dfe-845d-16727b4198e6/public_url"
+           target="_blank" rel="noopener noreferrer" class="cert-btn">
+          <i class="fas fa-external-link-alt"></i> Voir le badge Credly
+        </a>
+      </div>
+
+      <!-- Cisco -->
+      <div class="cert-card cisco reveal">
+        <div class="cert-header">
+          <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+          <div>
+            <div class="cert-name">Introduction to Data Science</div>
+            <div class="cert-issuer"><i class="fas fa-building"></i> Cisco</div>
+            <div class="cert-date"><i class="fas fa-calendar-check"></i> 2025</div>
+          </div>
+        </div>
+        <p class="cert-desc">
+          Certification Cisco Networking Academy en Data Science : principes de l'analyse de données, statistiques descriptives, visualisation et introduction aux modèles prédictifs. Badge Credly vérifié.
+        </p>
+        <a href="https://www.credly.com/badges/92ceee2a-2f6a-4c04-9077-0cf9cf64240e/public_url"
+           target="_blank" rel="noopener noreferrer" class="cert-btn">
+          <i class="fas fa-external-link-alt"></i> Voir le badge Credly
+        </a>
+      </div>
+
+      <!-- À venir -->
+      <div class="cert-card placeholder reveal">
+        <div class="cert-header">
+          <div class="cert-icon"><i class="fas fa-plus"></i></div>
+          <div>
+            <div class="cert-name">Prochaine certification</div>
+            <div class="cert-date"><i class="fas fa-hourglass-half"></i> En cours de préparation</div>
+          </div>
+        </div>
+        <p class="cert-desc">
+          Objectif : certification en cloud computing ou sécurité applicative pour consolider mon profil avant l'entrée en école d'ingénieurs.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <div class="footer-links">
+            <a href="mailto:habib.benmansour281802@gmail.com"><i class="fas fa-envelope"></i> habib.benmansour281802@gmail.com</a>
+            <a href="tel:+33604794119"><i class="fas fa-phone"></i> 06 04 79 41 19</a>
+          </div>
+        </div>
+        <div>
+          <h3>Réseaux</h3>
+          <div class="footer-links">
+            <a href="https://www.linkedin.com/in/habib-ben-mansour-475437297" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/habib11314" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div>
+          <h3>Documents</h3>
+          <div class="footer-links">
+            <a href="CV_BENMANSOUR_Habib_esiea.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Télécharger mon CV</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Habib Ben Mansour — Portfolio BUT3 Informatique · USPN</p>
+        <p>habib.benmansour281802@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600));
+    const toggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => { toggle.classList.toggle('open'); navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { toggle.classList.remove('open'); navLinks.classList.remove('open'); }));
+    const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('visible'); io.unobserve(x.target); } }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

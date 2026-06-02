@@ -1,810 +1,372 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio - Habib Ben Mansour</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio de Habib Ben Mansour — Développeur Full-Stack, futur ingénieur ESIEA en alternance chez Manpower. BUT3 Informatique USPN, stage Biotonix Canada, projets React Native, .NET, ML." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <title>Habib Ben Mansour — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="shared.css"/>
+  <style>
+    /* ── Hero Layout ─────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 6rem 2rem 3rem;
+      position: relative; z-index: 1;
+    }
 
-    <!-- Bibliothèques CSS modernes -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="navigation.css" />
+    .hero-inner {
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      display: grid; grid-template-columns: 380px 1fr;
+      gap: 5rem; align-items: center;
+    }
 
-    <!-- Particles.js pour l'arrière-plan -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-    <style>
-      :root {
-        --primary-color: #6366f1;
-        --secondary-color: #8b5cf6;
-        --accent-color: #06b6d4;
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --bg-card: rgba(30, 41, 59, 0.6);
-        --text-primary: #f8fafc;
-        --text-secondary: #cbd5e1;
-        --text-muted: #94a3b8;
-        --border-color: rgba(148, 163, 184, 0.1);
-        --glass-bg: rgba(255, 255, 255, 0.05);
-        --glass-border: rgba(255, 255, 255, 0.1);
-      }
+    /* ── Profile Card ────────────────────────────── */
+    .profile-card {
+      background: rgba(22, 27, 39, 0.8);
+      backdrop-filter: blur(32px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: "Inter", sans-serif;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        line-height: 1.6;
-        overflow-x: hidden;
-        min-height: 100vh;
-      }
+    .profile-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent);
+    }
 
-      /* Particles container */
-      #particles-js {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -1;
-      } /* Header */
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--glass-border);
-        transition: all 0.3s ease;
-      }
+    .profile-photo-wrap {
+      width: 160px; height: 160px;
+      margin: 0 auto 1.75rem;
+      position: relative;
+    }
 
-      .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
+    .profile-photo-wrap::before {
+      content: '';
+      position: absolute; inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--primary), var(--accent), var(--primary));
+      animation: rotate 4s linear infinite;
+    }
 
-      .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
+    @keyframes rotate { to { transform: rotate(360deg); } }
 
-      .logo-uspn {
-        height: 50px;
-        width: auto;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-      }
+    .profile-photo-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--bg-card);
+      border-radius: 50%;
+      margin: 3px;
+    }
 
-      .logo-uspn:hover {
-        transform: scale(1.1);
-      }
-      .navbar ul {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-      }
+    .profile-photo-wrap img {
+      position: relative; z-index: 1;
+      width: calc(100% - 6px); height: calc(100% - 6px);
+      border-radius: 50%; object-fit: cover;
+      margin: 3px;
+    }
 
-      .navbar a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 0.4rem 1rem; border-radius: 20px;
+      font-size: 0.82rem; color: #22c55e; font-weight: 500;
+      margin-bottom: 1.75rem;
+    }
 
-      .navbar a:hover,
-      .navbar a.active {
-        color: var(--text-primary);
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-      }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
 
-      .navbar a.active::after {
-        content: "";
-        position: absolute;
-        bottom: -0.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 4px;
-        background: var(--primary-color);
-        border-radius: 50%;
-      }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
 
-      /* Main content styling */
-      main {
-        padding: 6rem 2rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .profile-name {
+      font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem;
+    }
 
-      .hero-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-        width: 100%;
-      }
+    .profile-role {
+      font-size: 0.85rem; color: var(--text-soft); margin-bottom: 1.75rem;
+    }
 
-      /* Profile section with enhanced animations */
-      .profile-section {
-        text-align: center;
-        position: relative;
-      }      .center-container {
-        position: relative;
-        width: 400px;
-        margin: 0 auto 2rem;
-        text-align: center;
-      }
+    .profile-links {
+      display: flex; flex-direction: column; gap: 0.6rem;
+      margin-bottom: 1.75rem;
+    }
 
-      .photo-centrale {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 6px solid rgba(255, 255, 255, 0.3);
-        margin: 0 auto 2rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-      }
+    .profile-link {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.65rem; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--text-soft); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+      transition: all var(--transition);
+    }
+    .profile-link i { color: var(--primary); font-size: 0.85rem; width: 16px; text-align: center; }
+    .profile-link:hover { background: rgba(59,130,246,0.1); border-color: var(--border-blue); color: var(--text); transform: translateY(-1px); }
 
-      .photo-centrale:hover {
-        transform: scale(1.05);
-        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
-      }      /* Profile links */
-      .profile-links {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin: 2rem 0;
-      }
+    .cv-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.8rem 1.25rem; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; text-decoration: none; font-size: 0.88rem; font-weight: 600;
+      transition: all var(--transition);
+      box-shadow: 0 6px 24px rgba(59, 130, 246, 0.28);
+    }
+    .cv-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(59,130,246,0.42); }
 
-      .profile-btn {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        color: white;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        padding: 1rem 1.5rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        border: 1px solid var(--glass-border);
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
+    /* ── Hero Text ───────────────────────────────── */
+    .hero-text {}
 
-      .profile-btn:hover {
-        background: rgba(99, 102, 241, 0.2);
-        box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
-        color: var(--primary-color);
-        transform: scale(1.05);
-      }
+    .hero-text h1 {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -3px;
+      margin-bottom: 1rem;
+    }
 
-      .profile-btn i {
-        font-size: 1.2rem;
-      }      /* About section with glass morphism */
-      .about-section {
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        border-radius: 30px;
-        padding: 3rem;
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 25px 65px rgba(0, 0, 0, 0.1);
-      }
+    .hero-text h1 .gradient {
+      background: linear-gradient(135deg, var(--primary) 20%, var(--accent) 60%, #c4b5fd);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%; animation: grad-move 4s ease infinite;
+    }
 
-      .about-me {
-        margin: 0;
-        background: transparent;
-        box-shadow: none;
-      }      .about-me h1 {
-        font-family: "Poppins", sans-serif;
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        position: relative;
-        display: inline-block;      }      .alternance-bubble {
-        position: absolute;
-        top: 0;
-        right: -230px;
-        background: var(--primary-color);
-        color: white;
-        padding: 8px 14px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: all 0.3s ease;
-        animation: pulse 2s infinite;
-        display: inline-block;
-        -webkit-text-fill-color: white;
-        box-shadow: 0 3px 10px rgba(99, 102, 241, 0.3);
-      }
+    @keyframes grad-move {
+      0%, 100% { background-position: 0% 50%; }
+      50%       { background-position: 100% 50%; }
+    }
 
-      .alternance-bubble:hover {
-        transform: scale(1.1);
-        background: var(--secondary-color);
-      }
+    .hero-text h2 {
+      font-size: 1.35rem; color: var(--text-soft); font-weight: 400;
+      margin-bottom: 1.75rem; letter-spacing: -0.3px;
+    }
 
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
-        }
-        70% {
-          box-shadow: 0 0 0 6px rgba(99, 102, 241, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-        }
-      }      .about-me h2 {
-        font-size: 1.8rem;
-        color: white;
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-        position: relative;
-        display: inline-block;
-      }
+    .hero-text p {
+      color: var(--text-soft); font-size: 1.05rem; line-height: 1.85;
+      margin-bottom: 1rem; max-width: 540px;
+    }
+    .hero-text strong { color: var(--accent); font-weight: 600; }
 
-      .about-me p {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.1rem;
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-      }
+    .cta-row {
+      display: flex; gap: 0.85rem; margin-top: 2.5rem; flex-wrap: wrap;
+    }
 
-      .about-me strong {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: 600;
-      }
+    /* ── Stats ───────────────────────────────────── */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 3rem;
+      background: rgba(22, 27, 39, 0.65);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
 
-      .emoji {
-        font-size: 1.5rem;
-        display: inline-block;
-        animation: bounce 2s infinite;
-      }
+    .stat {
+      padding: 1.5rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
 
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
-      }
+    .stat-num {
+      font-size: 2.2rem; font-weight: 800; letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-      /* Enhanced CTA buttons */
-      .cta-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-        justify-content: center;
-      }
+    .stat-lbl {
+      font-size: 0.82rem; color: var(--text-soft); margin-top: 0.3rem;
+    }
 
-      .cta-btn {
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero { min-height: auto; padding-top: 7rem; }
+      .profile-card { max-width: 380px; margin: 0 auto; }
+    }
+    @media (max-width: 520px) {
+      .hero-text h1 { font-size: 2.5rem; letter-spacing: -2px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader" id="loader"><div class="loader-ring"></div></div>
+  <div class="bg-grid"></div>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
-      .cta-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-      }
-
-      .cta-secondary {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .cta-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      }      /* Responsive design */      @media (max-width: 768px) {
-        .hero-container {
-          grid-template-columns: 1fr;
-          text-align: center;
-        }
-
-        .center-container {
-          width: 300px;
-        }
-
-        .photo-centrale {
-          width: 150px;
-          height: 150px;
-        }
-
-        .profile-btn {
-          padding: 0.7rem 1rem;
-          font-size: 0.8rem;
-        }        .about-me h1 {
-          font-size: 2rem;        }        .alternance-bubble {
-          position: absolute;
-          bottom: -30px;
-          left: 50%;
-          transform: translateX(-50%);
-          margin: 0;
-          display: inline-block;
-          font-size: 0.8rem;
-        }
-
-        .about-me h2 {
-          position: relative;
-          padding-bottom: 40px;
-        }
-
-        .navbar {
-          padding: 1rem;
-        }
-
-        .navbar ul {
-          gap: 1rem;
-        }
-
-        .cta-buttons {
-          flex-direction: column;
-          align-items: center;
-        }
-      }@media (max-width: 480px) {
-        .center-container {
-          width: 260px;
-        }
-        
-        .photo-centrale {
-          width: 120px;
-          height: 120px;
-        }
-        
-        .profile-links {
-          gap: 0.5rem;
-        }
-        
-        .profile-btn {
-          padding: 0.5rem 0.8rem;
-          font-size: 0.7rem;
-        }
-      }/* Loading Animation */
-      .loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--bg-primary);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        opacity: 1;
-        transition: opacity 0.5s ease;
-      }
-
-      .loading-overlay.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      .loading-spinner {
-        width: 50px;
-        height: 50px;
-        border: 3px solid var(--border-color);
-        border-top: 3px solid var(--primary-color);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Loading overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-      <div class="loading-spinner"></div>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">HBM</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="formation.html"><i class="fas fa-graduation-cap"></i> Formation</a></li>
+        <li><a href="competences.html"><i class="fas fa-code"></i> Compétences</a></li>
+        <li><a href="experience.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+        <li><a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a></li>
+        <li><a href="certifications.html"><i class="fas fa-certificate"></i> Certifications</a></li>
+        <li><a href="contact.html"><i class="fas fa-paper-plane"></i> Contact</a></li>
+        <li><a href="bilan.html"><i class="fas fa-chart-line"></i> Bilan BUT3</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Particles background -->
-    <div id="particles-js"></div>
+  <section class="hero">
+    <div class="hero-inner">
 
-    <header>      <nav class="navbar" data-aos="fade-down">
-        <div class="logo-container">
-          <!-- Logo supprimé -->
+      <!-- Profile Card -->
+      <div class="profile-card reveal">
+        <div class="profile-photo-wrap">
+          <img src="IMG_0523 (2).jpg" alt="Habib Ben Mansour — Photo de profil">
         </div>
-        <ul>
-          <li>
-            <a href="index.html" class="active"
-              ><i class="fas fa-home"></i> Accueil</a
-            >
-          </li>
-          <li>
-            <a href="formation.html"
-              ><i class="fas fa-graduation-cap"></i> Formation</a
-            >
-          </li>
-          <li>
-            <a href="competences.html"
-              ><i class="fas fa-cogs"></i> Compétences</a
-            >
-          </li>          <li>
-            <a href="experience.html"
-              ><i class="fas fa-briefcase"></i> Expérience</a
-            >
-          </li>
-          <li>
-            <a href="projets.html"
-              ><i class="fas fa-code-branch"></i> Projets</a
-            >
-          </li>
-          <li>
-            <a href="motivation.html"
-              ><i class="fas fa-book"></i> Mon Histoire</a
-            >
-          </li>
-          <li>
-            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
 
-    <main>
-      <div class="hero-container">        <!-- Profile Section -->
-        <div class="profile-section" data-aos="zoom-in" data-aos-delay="300">
-          <div class="center-container">
-            <img
-              src="IMG_0523 (2).jpg"
-              alt="Photo Habib Ben Mansour"
-              class="photo-centrale"
-            />
-            <div class="profile-links">
-              <a href="formation.html" class="profile-btn">
-                <i class="fas fa-graduation-cap"></i>
-                Formation
-              </a>
-              <a href="competences.html" class="profile-btn">
-                <i class="fas fa-cogs"></i>
-                Compétences
-              </a>              <a href="experience.html" class="profile-btn">
-                <i class="fas fa-briefcase"></i>
-                Expérience
-              </a>
-              <a href="projets.html" class="profile-btn">
-                <i class="fas fa-code-branch"></i>
-                Projets
-              </a>
-              <a href="contact.html" class="profile-btn">
-                <i class="fas fa-envelope"></i>
-                Contact
-              </a>
-              <a href="motivation.html" class="profile-btn">
-                <i class="fas fa-book"></i>
-                Histoire
-              </a>
-            </div>
+        <div class="status-pill">
+          <span class="status-dot"></span>
+          ESIEA · Analyste Dev. RPA · Manpower
+        </div>
+
+        <div class="profile-name">Habib Ben Mansour</div>
+        <div class="profile-role">Futur Ingénieur ESIEA · Alternance Manpower</div>
+
+        <div class="profile-links">
+          <a href="mailto:habib.benmansour281802@gmail.com" class="profile-link">
+            <i class="fas fa-envelope"></i> habib.benmansour281802@gmail.com
+          </a>
+          <a href="tel:+33604794119" class="profile-link">
+            <i class="fas fa-phone"></i> 06 04 79 41 19
+          </a>
+          <a href="https://www.linkedin.com/in/habib-ben-mansour-475437297" target="_blank" rel="noopener" class="profile-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/habib11314" target="_blank" rel="noopener" class="profile-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+
+        <a href="CV_BENMANSOUR_Habib_esiea.pdf" target="_blank" class="cv-btn">
+          <i class="fas fa-file-pdf"></i> Télécharger mon CV
+        </a>
+      </div>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="reveal">
+          <span class="gradient">Habib<br>Ben Mansour</span>
+        </h1>
+        <h2 class="reveal">Développeur Full-Stack · Futur Ingénieur ESIEA</h2>
+
+        <p class="reveal">
+          Passionné par le <strong>développement logiciel</strong> et l'<strong>innovation technologique</strong>.
+          Expérience en production chez <strong>Biotonix (Canada)</strong> — .NET, Angular, Ionic.
+          Futur <strong>ingénieur ESIEA</strong> en alternance chez <strong>Manpower</strong> — Analyste Développeur RPA.
+        </p>
+
+        <p class="reveal">
+          Compétences en <strong>Python, Java, React Native, SQL</strong> et architecture logicielle.
+          Curieux, rigoureux, et habitué à travailler en équipe internationale.
+        </p>
+
+        <div class="cta-row reveal">
+          <a href="projets.html" class="btn btn-primary">
+            <i class="fas fa-folder-open"></i> Voir mes projets
+          </a>
+          <a href="bilan.html" class="btn btn-secondary">
+            <i class="fas fa-chart-line"></i> Bilan BUT3
+          </a>
+          <a href="contact.html" class="btn btn-secondary">
+            <i class="fas fa-paper-plane"></i> Contact
+          </a>
+        </div>
+
+        <div class="stats reveal">
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-lbl">Années BUT</div>
           </div>
-        </div>
-
-        <!-- About Section -->
-        <div class="about-section" data-aos="fade-left" data-aos-delay="600">
-          <div class="about-me">            <h1 class="animate__animated animate__fadeInUp">
-              Habib Ben Mansour
-            </h1>
-            <h2 data-aos="fade-up" data-aos-delay="800">
-              Qui suis-je ?
-              <a href="motivation.html#chapter-3" class="alternance-bubble">
-                <i class="fas fa-briefcase"></i> Ouvert aux alternances
-              </a>
-            </h2>
-            <p data-aos="fade-up" data-aos-delay="1000">
-              Je m'appelle <strong>Habib Ben Mansour</strong>, passionné
-              d'informatique depuis toujours, curieux et déterminé à transformer
-              le code en un outil à la fois utile et créatif.
-            </p>
-            <p data-aos="fade-up" data-aos-delay="1200">
-              Ce site n'est pas qu'un simple portfolio : c'est une plongée au
-              cœur de mon univers professionnel et personnel. Ici, vous
-              découvrirez des projets concrets, des compétences solides, et une
-              ambition constante d'apprendre, de créer et de collaborer.
-            </p>
-            <p data-aos="fade-up" data-aos-delay="1400">
-              Mon objectif ? Évoluer dans un monde numérique en perpétuelle
-              évolution, en apportant des solutions innovantes et efficaces.
-            </p>
-            <p data-aos="fade-up" data-aos-delay="1600">
-              Si vous souhaitez vraiment connaître ce que je peux apporter,
-              commencez par ici. <span class="emoji">👨‍💻</span> Bonne visite !
-            </p>
-
-            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="1800">
-              <a href="motivation.html" class="cta-btn cta-primary">
-                <i class="fas fa-rocket"></i>
-                Découvrir mon parcours
-              </a>
-              <a href="contact.html" class="cta-btn cta-secondary">
-                <i class="fas fa-paper-plane"></i>
-                Me contacter
-              </a>
-            </div>
+          <div class="stat">
+            <div class="stat-num">10+</div>
+            <div class="stat-lbl">Projets réalisés</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">4 mois</div>
+            <div class="stat-lbl">Stage international</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">ESIEA</div>
+            <div class="stat-lbl">Ingénieur 2026</div>
           </div>
         </div>
       </div>
-    </main>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-      // Configuration Particles.js
-      particlesJS("particles-js", {
-        particles: {
-          number: {
-            value: 80,
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-          },
-          color: {
-            value: ["#667eea", "#764ba2", "#f093fb", "#f5576c"],
-          },
-          shape: {
-            type: "circle",
-            stroke: {
-              width: 0,
-              color: "#000000",
-            },
-            polygon: {
-              nb_sides: 5,
-            },
-          },
-          opacity: {
-            value: 0.5,
-            random: false,
-            anim: {
-              enable: false,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false,
-            },
-          },
-          size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 40,
-              size_min: 0.1,
-              sync: false,
-            },
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#ffffff",
-            opacity: 0.4,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 6,
-            direction: "none",
-            random: false,
-            straight: false,
-            out_mode: "out",
-            bounce: false,
-            attract: {
-              enable: false,
-              rotateX: 600,
-              rotateY: 1200,
-            },
-          },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: {
-              enable: true,
-              mode: "repulse",
-            },
-            onclick: {
-              enable: true,
-              mode: "push",
-            },
-            resize: true,
-          },
-          modes: {
-            grab: {
-              distance: 400,
-              line_linked: {
-                opacity: 1,
-              },
-            },
-            bubble: {
-              distance: 400,
-              size: 40,
-              duration: 2,
-              opacity: 8,
-              speed: 3,
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-            push: {
-              particles_nb: 4,
-            },
-            remove: {
-              particles_nb: 2,
-            },
-          },
-        },
-        retina_detect: true,
-      });
+    </div>
+  </section>
 
-      // Initialisation AOS
-      AOS.init({
-        duration: 1000,
-        easing: "ease-in-out",
-        once: true,
-        mirror: false,
-      });
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <div class="footer-links">
+            <a href="mailto:habib.benmansour281802@gmail.com"><i class="fas fa-envelope"></i> habib.benmansour281802@gmail.com</a>
+            <a href="tel:+33604794119"><i class="fas fa-phone"></i> 06 04 79 41 19</a>
+          </div>
+        </div>
+        <div>
+          <h3>Réseaux</h3>
+          <div class="footer-links">
+            <a href="https://www.linkedin.com/in/habib-ben-mansour-475437297" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/habib11314" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div>
+          <h3>Documents</h3>
+          <div class="footer-links">
+            <a href="CV_BENMANSOUR_Habib_esiea.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Télécharger mon CV</a>
+            <a href="bilan.html"><i class="fas fa-chart-line"></i> Bilan BUT3</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Habib Ben Mansour — Portfolio BUT3 Informatique · USPN</p>
+        <p>habib.benmansour281802@gmail.com</p>
+      </div>
+    </div>
+  </footer>
 
-      // Loading animation
-      window.addEventListener("load", function () {
-        setTimeout(() => {
-          document.getElementById("loadingOverlay").style.opacity = "0";
-          setTimeout(() => {
-            document.getElementById("loadingOverlay").style.display = "none";
-          }, 1000);
-        }, 1500);
-      }); // Header Scroll Effect
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header");
-        if (window.scrollY > 100) {
-          header.style.background = "rgba(15, 23, 42, 0.95)";        } else {
-          header.style.background = "rgba(15, 23, 42, 0.8)";
-        }
-      });
+  <script>
+    // Loader
+    window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('hidden'), 600));
 
-      // Smooth scroll pour les liens internes
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth",
-          });
-        });
-      });
+    // Hamburger
+    const toggle = document.getElementById('nav-toggle');
+    const links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => { toggle.classList.toggle('open'); links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { toggle.classList.remove('open'); links.classList.remove('open'); }));
 
-      // Particles.js Configuration
-      particlesJS("particles-js", {
-        particles: {
-          number: {
-            value: 80,
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-          },
-          color: {
-            value: ["#6366f1", "#8b5cf6", "#06b6d4"],
-          },
-          shape: {
-            type: "circle",
-          },
-          opacity: {
-            value: 0.5,
-            random: false,
-          },
-          size: {
-            value: 3,
-            random: true,
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#6366f1",
-            opacity: 0.4,
-            width: 1,
-          },
-          move: {
-            enable: true,
-            speed: 6,
-            direction: "none",
-            random: false,
-            straight: false,
-            out_mode: "out",
-            bounce: false,
-          },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: {
-              enable: true,
-              mode: "repulse",
-            },
-            onclick: {
-              enable: true,
-              mode: "push",
-            },
-            resize: true,
-          },
-          modes: {
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-            push: {
-              particles_nb: 4,
-            },
-          },
-        },
-        retina_detect: true,
-      });
-    </script>
-  </body>
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal, .reveal-group').forEach(el => io.observe(el));
+  </script>
+</body>
 </html>
