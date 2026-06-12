@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Présentation - Habib Ben Mansour</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #3b82f6;
+        --secondary: #1e40af;
+        --accent: #60a5fa;
+        --bg-dark: #0f1419;
+        --bg-surface: #1a1f2e;
+        --bg-card: #1f2937;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --border: rgba(148, 163, 184, 0.1);
+      }
+
+      body {
+        font-family: "Space Grotesk", sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .bg-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          linear-gradient(rgba(59, 130, 246, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .gradient-orbs {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.15;
+        animation: float 20s infinite ease-in-out;
+      }
+
+      .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: var(--primary);
+        top: 10%;
+        left: 10%;
+      }
+
+      .orb-2 {
+        width: 400px;
+        height: 400px;
+        background: var(--secondary);
+        top: 60%;
+        right: 10%;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(30px, -30px) scale(1.1); }
+        66% { transform: translate(-30px, 30px) scale(0.9); }
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(30px) saturate(180%);
+        border-bottom: 1px solid var(--border);
+      }
+
+      nav::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), var(--accent), transparent);
+        opacity: 0.4;
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -1px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 0.7rem 1.2rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-2px);
+      }
+
+      .nav-links a.active {
+        color: var(--primary);
+        background: rgba(59, 130, 246, 0.1);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+      }
+
+      main {
+        padding: 8rem 2rem 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: 5rem;
+      }
+
+      .page-header h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .timeline {
+        position: relative;
+        padding: 2rem 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, transparent, var(--primary), transparent);
+        transform: translateX(-50%);
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 4rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .timeline-item:nth-child(even) .timeline-content {
+        order: 2;
+      }
+
+      .timeline-item:nth-child(even) .timeline-icon {
+        order: 1;
+      }
+
+      .timeline-content {
+        background: rgba(31, 41, 55, 0.6);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 2.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
+      }
+
+      .timeline-date {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .timeline-content h3 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .timeline-content h4 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+      }
+
+      .timeline-content p {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .timeline-content ul {
+        list-style: none;
+        margin-top: 1rem;
+      }
+
+      .timeline-content li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--text-secondary);
+      }
+
+      .timeline-content li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+      }
+
+      .timeline-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon-circle {
+        width: 80px;
+        height: 80px;
+        background: rgba(31, 41, 55, 0.6);
+        backdrop-filter: blur(20px);
+        border: 2px solid var(--border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary);
+        position: relative;
+        z-index: 2;
+      }
+
+      @media (max-width: 1024px) {
+        .timeline::before {
+          left: 40px;
+        }
+
+        .timeline-item {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          padding-left: 100px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+          order: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-icon {
+          order: 1;
+        }
+
+        .timeline-icon {
+          position: absolute;
+          left: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-container {
+          padding: 1rem 1.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        main {
+          padding: 6rem 1.5rem 2rem;
+        }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+
+        .timeline-item {
+          padding-left: 60px;
+        }
+
+        .timeline::before {
+          left: 20px;
+        }
+
+        .icon-circle {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+        }
+      }
+
+      /* Book Styles */
+      .book-section {
+        margin-top: 8rem;
+        padding: 4rem 0;
+      }
+
+      .section-divider {
+        text-align: center;
+        margin: 6rem 0 4rem;
+      }
+
+      .section-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .book-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(31, 41, 55, 0.6);
+        backdrop-filter: blur(30px);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 4rem;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .book-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 24px 24px 0 0;
+      }
+
+      .chapter {
+        display: none;
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      .chapter.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chapter-title {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: var(--text-primary);
+        font-family: 'Playfair Display', serif;
+      }
+
+      .chapter-number {
+        display: block;
+        font-size: 1rem;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .chapter p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        line-height: 1.9;
+        margin-bottom: 1.5rem;
+      }
+
+      .chapter strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .quote {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid var(--primary);
+        padding: 1.5rem 2rem;
+        margin: 2.5rem 0;
+        border-radius: 0 12px 12px 0;
+        font-style: italic;
+        color: var(--accent);
+        font-size: 1.05rem;
+      }
+
+      .book-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .nav-btn {
+        padding: 0.9rem 1.8rem;
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        color: var(--primary);
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-btn:hover {
+        background: rgba(59, 130, 246, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      .page-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+
+      .page-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .page-dot.active {
+        background: var(--primary);
+        transform: scale(1.3);
+      }
+
+      .download-section {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: rgba(59, 130, 246, 0.05);
+        border-radius: 16px;
+        text-align: center;
+      }
+
+      .download-title {
+        font-size: 1.5rem;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .download-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .download-link {
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+      }
+
+      .download-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+      }
+
+      @media (max-width: 768px) {
+        .book-container {
+          padding: 2rem;
+        }
+
+        .chapter-title {
+          font-size: 1.8rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .download-links {
+          flex-direction: column;
+        }
+      }
+
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loader.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--border);
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+
+        .timeline-item {
+          padding-left: 80px;
+        }
+      }
+
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loader.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--border);
+        border-top: 3px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div class="bg-grid"></div>
+    <div class="gradient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">HBM</div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="formation.html" class="active"><i class="fas fa-graduation-cap"></i> Formation</a></li>
+                <li><a href="competences.html"><i class="fas fa-code"></i> Compétences</a></li>
+                <li><a href="experience.html"><i class="fas fa-briefcase"></i> Expérience</a></li>
+                <li><a href="projets.html"><i class="fas fa-folder-open"></i> Projets</a></li>                <li><a href="certifications.html"><i class="fas fa-certificate"></i> Certifications</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1>Formation Académique</h1>
+            <p>Mon parcours éducatif en informatique et sciences du numérique</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2024 - Présent</span>
+                    <h3>BUT Informatique - 3ème année</h3>
+                    <h4>Université Sorbonne Paris Nord (USPN)</h4>
+                    <p>
+                        Formation approfondie en développement logiciel, algorithmique avancée, 
+                        bases de données, réseaux et systèmes. Spécialisation en ingénierie logicielle 
+                        et développement d'applications.
+                    </p>
+                    <ul>
+                        <li>Conception et développement d'applications complexes</li>
+                        <li>Gestion de projets informatiques</li>
+                        <li>Architecture logicielle et patterns de conception</li>
+                        <li>DevOps et méthodologies agiles</li>
+                    </ul>
+                </div>
+                <div class="timeline-icon">
+                    <div class="icon-circle">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2022 - 2024</span>
+                    <h3>BUT Informatique - 1ère & 2ème année</h3>
+                    <h4>Université Sorbonne Paris Nord (USPN)</h4>
+                    <p>
+                        Acquisition des fondamentaux de l'informatique : programmation orientée objet, 
+                        structures de données, algorithmique, développement web, et bases de données.
+                    </p>
+                    <ul>
+                        <li>Programmation (Java, Python, C, JavaScript)</li>
+                        <li>Algorithmique et structures de données</li>
+                        <li>Développement web (HTML, CSS, JavaScript, PHP)</li>
+                        <li>Bases de données relationnelles (SQL)</li>
+                        <li>Réseaux et systèmes d'exploitation</li>
+                    </ul>
+                </div>
+                <div class="timeline-icon">
+                    <div class="icon-circle">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2019 - 2022</span>
+                    <h3>Baccalauréat Général</h3>
+                    <h4>Spécialités Mathématiques et NSI</h4>
+                    <p>
+                        Formation scientifique solide avec spécialisation en Numérique et Sciences Informatiques 
+                        et Mathématiques, préparant à des études supérieures en informatique.
+                    </p>
+                    <ul>
+                        <li>Numérique et Sciences Informatiques (NSI)</li>
+                        <li>Mathématiques avancées</li>
+                        <li>Introduction à la programmation Python</li>
+                        <li>Algorithmique de base</li>
+                    </ul>
+                </div>
+                <div class="timeline-icon">
+                    <div class="icon-circle">
+                        <i class="fas fa-school"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 800);
+        });
+    </script>
+
+    <footer style="background: var(--bg-card); border-top: 1px solid var(--border); padding: 3rem 2rem; color: var(--text-secondary); margin-top: 4rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.2rem;">Contact</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="mailto:habib.benmansour281802@gmail.com" style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#94a3b8'">
+                            <i class="fas fa-envelope"></i> habib.benmansour281802@gmail.com
+                        </a>
+                        <a href="tel:+33604794119" style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#94a3b8'">
+                            <i class="fas fa-phone"></i> 06 04 79 41 19
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.2rem;">Réseaux</h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="https://www.linkedin.com/in/habib-ben-mansour-475437297" target="_blank" rel="noopener" style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#94a3b8'">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/habib11314" target="_blank" rel="noopener" style="color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color='#94a3b8'">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
